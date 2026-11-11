@@ -52,7 +52,7 @@ header.top .wrap{display:flex;align-items:center;gap:18px;height:74px}
 .mode button{padding:6px 11px;border-radius:999px;color:var(--mute)}
 .mode button[aria-pressed=true]{background:#fff;color:#160c24;font-weight:700}
 @media (max-width:980px){.pillnav{display:none}.icons{margin-left:auto}}
-@media (max-width:560px){.brand small{display:none}.brand b{font-size:12px;letter-spacing:.08em;white-space:nowrap}.brand img{width:36px}.mode{font-size:11.5px}.mode button{padding:6px 8px}.icons{gap:8px}.icons .hide-m{display:none}}
+@media (max-width:560px){.brand small{display:none}.brand b{font-size:11px;letter-spacing:.04em;white-space:nowrap}.brand img{width:36px}.mode{font-size:11.5px}.mode button{padding:6px 8px}.icons{gap:8px}.icons .hide-m{display:none}}
 
 /* hero */
 .hero{padding:56px 0 30px;overflow:hidden}
@@ -235,9 +235,32 @@ body.cart-open .scrim{opacity:1;pointer-events:auto}body.cart-open .drawer{trans
 .demo-pill{position:fixed;left:16px;bottom:16px;z-index:50;background:#fff;color:#160c24;border-radius:999px;padding:10px 16px;font-size:13px;font-weight:700;box-shadow:0 8px 20px -8px #000}
 .wa-float{position:fixed;right:16px;bottom:16px;z-index:50;width:54px;height:54px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 20px -8px #000}
 .wa-float svg{width:28px;height:28px;fill:#fff}
+
+/* apertura */
+.opening{position:fixed;inset:0;z-index:100;background:radial-gradient(60% 50% at 50% 45%,#3b1f66,#120a1c 70%);display:grid;place-items:center;transition:transform 1s cubic-bezier(.77,0,.18,1)}
+.opening.out{transform:translateY(-100%)}
+.opening.gone{display:none}
+.opening .in{text-align:center}
+.opening img{width:min(62vw,340px);margin:0 auto;opacity:0;transform:scale(.6) rotate(-8deg);animation:logoin 1.1s .15s cubic-bezier(.2,.9,.2,1.2) forwards;filter:drop-shadow(0 2px 0 #e8c46a) drop-shadow(6px 10px 0 #2b1446) drop-shadow(0 30px 30px #000c)}
+@keyframes logoin{to{opacity:1;transform:none}}
+.opening .glow{position:absolute;width:min(80vw,460px);aspect-ratio:1;border-radius:50%;border:1.5px solid #c8a8ff55;box-shadow:0 0 80px #7c4dff55;opacity:0;animation:ringin 1.4s .3s ease-out forwards}
+@keyframes ringin{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+.opening h2{font-weight:800;letter-spacing:.3em;font-size:clamp(18px,4.6vw,30px);margin-top:18px;color:#f1e6ff;opacity:0;animation:txtin .8s .9s forwards;text-shadow:0 2px 0 #7c4dff,0 10px 20px #000}
+.opening p{font-family:var(--script);color:var(--vio);font-size:clamp(24px,6vw,36px);opacity:0;animation:txtin .8s 1.2s forwards}
+@keyframes txtin{from{opacity:0;transform:translateY(10px);letter-spacing:.5em}to{opacity:1;transform:none}}
+.opening .bar{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);width:140px;height:2px;border-radius:2px;background:#ffffff22;overflow:hidden}
+.opening .bar::after{content:"";position:absolute;inset:0;background:var(--vio);transform:translateX(-100%);animation:load 2.3s .1s ease-in-out forwards}
+@keyframes load{to{transform:none}}
+.opening .skip{position:absolute;right:20px;bottom:28px;font-size:12px;letter-spacing:.14em;color:#ffffff99}
 </style>
 </head>
 <body>
+<div class="opening" id="intro" role="presentation">
+  <div class="glow"></div>
+  <div class="in"><img src="fotos/logo-elefante.png" alt=""><h2>ROSARIO PIERCING</h2><p>brillá a tu manera</p></div>
+  <div class="bar"></div>
+  <button class="skip" type="button" onclick="closeIntro()">SALTAR</button>
+</div>
 
 <header class="top">
   <div class="wrap">
@@ -405,6 +428,11 @@ body.cart-open .scrim{opacity:1;pointer-events:auto}body.cart-open .drawer{trans
 <div class="toast" id="toast"></div>
 
 <script>
+
+function closeIntro(){const i=document.getElementById("intro");if(!i||i.classList.contains("out"))return;i.classList.add("out");setTimeout(()=>i.classList.add("gone"),1050);document.body.style.overflow="";}
+(function(){let seen=null;try{seen=sessionStorage.getItem("rpIntro")}catch(e){}
+ if(seen||matchMedia("(prefers-reduced-motion: reduce)").matches){document.getElementById("intro").classList.add("gone");return;}
+ document.body.style.overflow="hidden";setTimeout(closeIntro,2800);try{sessionStorage.setItem("rpIntro","1")}catch(e){}})();
 const WA="5493412213863";
 const $=s=>document.querySelector(s);
 const money=n=>"$"+Math.round(n).toLocaleString("es-AR");
@@ -475,7 +503,7 @@ function openModal(id){const p=P.find(x=>x.id===id);mOpt=p.o[0];$("#mImg").src=`
  $("#mPrice").innerHTML=`<b style="font-size:26px">${money(price(p))}</b><small>${mode==="may"?"precio mayorista":"precio minorista · mayorista "+money(p.p[1])}</small>`;
  $("#mAdd").onclick=()=>{addById(p.id,null,mOpt);closeModal();};$("#modal").classList.add("on");}
 function closeModal(){$("#modal").classList.remove("on")}
-addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeCart();}});
+addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeCart();closeIntro();}});
 
 /* turnos colocación */
 let Z=null,D=null;const ZON=["Nariz","Oreja","Septum","Ombligo","Labio","Ceja","Lengua","Pezón"];
