@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Rosario Piercing · App</title>
+<meta name="theme-color" content="#1b1028">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#f4eefc;--mute:#bfb2d4;--vio:#b892ff;--vio2:#8a5cf6;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.12);--bd:rgba(255,255,255,.14);
+--serif:"Cormorant Garamond",Georgia,serif;--sans:"Outfit",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body{font:15px/1.45 var(--sans);color:var(--ink);background:#0d0716;min-height:100svh;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--vio);outline-offset:2px}
+
+/* contenedor: pantalla completa en celular, marco de teléfono en computadora */
+.desk{min-height:100svh;display:grid;place-items:center;background:radial-gradient(50vw 50vw at 20% 20%,#3b1f66,transparent 60%),radial-gradient(40vw 40vw at 90% 80%,#5a2fd055,transparent 60%),#0d0716;padding:24px}
+.desk .side{display:none}
+.phone{position:relative;width:100%;max-width:430px;height:100svh;overflow:hidden;background:#1b1028}
+@media (max-width:819px){.desk{padding:0}}
+@media (min-width:820px){
+ .desk{grid-template-columns:auto 420px;gap:60px;justify-content:center}
+ .desk .side{display:block;max-width:360px}
+ .side h1{font-family:var(--serif);font-size:56px;line-height:1;font-weight:600}
+ .side p{color:var(--mute);margin:14px 0 22px}
+ .side .tag{display:inline-block;background:var(--vio);color:#1b1028;font-weight:700;font-size:12.5px;padding:6px 12px;border-radius:999px;margin-bottom:16px}
+ .side a.btn{display:inline-block;background:#fff;color:#1b1028;font-weight:700;padding:12px 18px;border-radius:999px;margin-right:8px;margin-bottom:8px}
+ .phone{height:860px;max-height:92vh;border-radius:46px;border:10px solid #0a0510;box-shadow:0 40px 80px -30px #000,0 0 0 1px #ffffff22}
+}
+.bg{position:absolute;inset:0;background:url(fotos/logo-elefante.png) 120% 8%/80% no-repeat,radial-gradient(90% 60% at 80% 0%,#6d3fd0,transparent 60%),radial-gradient(80% 60% at 0% 100%,#3b1f66,transparent 60%),#1b1028;filter:saturate(1.1)}
+.bg::after{content:"";position:absolute;inset:0;backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);background:#1b102855}
+.view{position:absolute;inset:0;overflow-y:auto;padding:max(18px,env(safe-area-inset-top)) 18px 110px;opacity:0;pointer-events:none;transform:translateX(24px);transition:opacity .35s,transform .35s;scrollbar-width:none}
+.view::-webkit-scrollbar{display:none}
+.view.on{opacity:1;pointer-events:auto;transform:none}
+.glass{background:var(--glass);border:1px solid var(--bd);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:22px}
+
+/* splash */
+#splash{display:grid;place-items:center;padding:30px 22px}
+#splash .card{width:100%;padding:34px 26px 30px;text-align:center;border-radius:30px}
+#splash img{width:62%;margin:0 auto 6px;filter:drop-shadow(0 2px 0 #e8c46a) drop-shadow(5px 8px 0 #2b1446) drop-shadow(0 20px 24px #000a);animation:float 5s ease-in-out infinite}
+@keyframes float{50%{translate:0 -8px}}
+#splash h1{font-family:var(--serif);font-size:46px;font-weight:600;line-height:1}
+#splash .sub{color:var(--vio);font-family:var(--serif);font-size:22px;margin:6px 0 16px}
+#splash p{color:var(--mute);line-height:1.7;margin-bottom:26px}
+.cta{display:flex;align-items:center;justify-content:space-between;width:100%;padding:16px 22px;border-radius:999px;background:linear-gradient(90deg,#cdb2ff,#a47cff);color:#1b1028;font-weight:700;font-size:16px;box-shadow:0 12px 30px -12px #a47cff}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:22px}
+.dots i{width:8px;height:8px;border-radius:50%;background:#ffffff40}.dots i:first-child{background:#fff}
+
+/* home */
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.top h2{font-family:var(--serif);font-size:28px;font-weight:600}
+.icbtn{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;position:relative}
+.icbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7}
+.cnt{position:absolute;top:2px;right:2px;min-width:18px;height:18px;border-radius:999px;background:var(--vio);color:#1b1028;font-size:11px;font-weight:800;display:grid;place-items:center}
+.search{display:flex;gap:10px;margin-bottom:14px}
+.search label{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:0 16px;border-radius:999px}
+.search input{flex:1;min-width:0;background:none;border:0;color:var(--ink);font:inherit;padding:13px 0}
+.search input::placeholder{color:var(--mute)}
+.search svg{width:18px;height:18px;stroke:var(--mute);fill:none;stroke-width:2}
+.search .icbtn{border-radius:16px}
+.mode{display:flex;padding:4px;border-radius:999px;margin-bottom:14px}
+.mode button{flex:1;padding:9px;border-radius:999px;font-size:13.5px;color:var(--mute)}
+.mode button[aria-pressed=true]{background:#fff;color:#1b1028;font-weight:700}
+.hero{position:relative;padding:20px;border-radius:26px;overflow:hidden;min-height:190px;margin-bottom:8px}
+.hero h3{font-family:var(--serif);font-size:30px;line-height:1.02;font-weight:600;max-width:58%}
+.hero p{color:var(--mute);font-size:13px;margin:8px 0 14px;max-width:52%}
+.hero img{position:absolute;right:-6px;bottom:-6px;width:50%;aspect-ratio:1;object-fit:cover;border-radius:50%;box-shadow:0 0 0 8px #ffffff12}
+.pillbtn{display:inline-block;padding:9px 16px;border-radius:999px;background:linear-gradient(90deg,#cdb2ff,#a47cff);color:#1b1028;font-weight:700;font-size:13px}
+.pager{display:flex;gap:6px;justify-content:center;margin:8px 0 16px}.pager i{width:6px;height:6px;border-radius:50%;background:#ffffff40}.pager i.on{background:#fff;width:16px;border-radius:4px}
+.cats{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -18px 18px;padding:0 18px}
+.cats::-webkit-scrollbar{display:none}
+.cats button{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:var(--mute);width:66px}
+.cats .c{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;overflow:hidden}
+.cats .c img{width:100%;height:100%;object-fit:cover;opacity:.9}
+.cats button[aria-pressed=true]{color:#fff}
+.cats button[aria-pressed=true] .c{outline:2px solid var(--vio);outline-offset:2px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.sh h4{font-size:18px;font-weight:600}
+.sh button{font-size:13px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.p{border-radius:20px;padding:8px;text-align:left}
+.p .im{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden}
+.p .im img{width:100%;height:100%;object-fit:cover}
+.p .im .tag{position:absolute;left:8px;top:8px;font-size:10.5px;font-weight:700;background:#1b1028bb;padding:3px 8px;border-radius:999px}
+.p .nm{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin:8px 4px 2px;font-size:13.5px;font-weight:500}
+.p .pr{margin:0 4px 4px;font-weight:700}
+.p .pr small{color:var(--mute);font-weight:400;font-size:11px}
+.heart{font-size:16px;color:var(--mute)}
+.heart[aria-pressed=true]{color:var(--vio)}
+
+/* tab bar */
+.tabbar{position:absolute;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:5;display:flex;justify-content:space-around;padding:8px;border-radius:26px}
+.tabbar button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:var(--mute);padding:6px 10px;border-radius:16px;position:relative}
+.tabbar svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7}
+.tabbar button.on{color:#1b1028;background:linear-gradient(180deg,#d7c2ff,#a47cff)}
+.tabbar .cnt{top:0;right:4px}
+.tabbar.hide{display:none}
+
+/* detalle */
+#detail{padding-top:0;padding-left:0;padding-right:0}
+.dimg{position:relative;height:52%;min-height:330px}
+.dimg img{width:100%;height:100%;object-fit:cover}
+.dimg::after{content:"";position:absolute;inset:auto 0 0;height:40%;background:linear-gradient(transparent,#1b1028)}
+.dtop{position:absolute;top:max(14px,env(safe-area-inset-top));left:16px;right:16px;display:flex;justify-content:space-between;z-index:2}
+.dtop .icbtn{background:#1b102899;backdrop-filter:blur(8px);border:1px solid var(--bd)}
+.dcard{position:relative;margin:-60px 16px 0;padding:20px;border-radius:26px;z-index:2}
+.dcard h2{font-family:var(--serif);font-size:32px;font-weight:600;line-height:1}
+.dcard .lat{color:var(--vio);margin:4px 0 10px}
+.dcard .meta{display:flex;gap:14px;font-size:13px;color:var(--mute);margin-bottom:10px}
+.dcard p{color:#ddd2ee;font-size:14px}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);margin:16px 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.specs div{text-align:center;padding:12px 4px;font-size:11.5px;color:var(--mute)}
+.specs div+div{border-left:1px solid var(--bd)}
+.specs b{display:block;color:#fff;font-size:12.5px;margin:4px 0 2px;font-weight:600}
+.specs i{font-style:normal;font-size:18px}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.opts button{padding:8px 14px;border-radius:12px;border:1px solid var(--bd);font-size:13px;color:#ddd2ee}
+.opts button[aria-pressed=true]{background:#fff;color:#1b1028;font-weight:700}
+.buy{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.buy .pr{font-size:28px;font-weight:700}
+.buy .pr small{display:block;font-size:12px;color:var(--mute);font-weight:400}
+.buy .cta{width:auto;flex:1;justify-content:center;gap:10px}
+
+/* carrito */
+.ci{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:20px;margin-bottom:10px}
+.ci img{width:72px;height:72px;border-radius:14px;object-fit:cover}
+.ci b{display:block;font-weight:600}
+.ci small{display:block;color:var(--mute);font-size:12px}
+.ci .pr{font-weight:700;margin-top:6px}
+.ci .right{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.qty{display:flex;align-items:center;gap:8px;padding:3px;border-radius:999px;border:1px solid var(--bd)}
+.qty button{width:26px;height:26px;border-radius:50%}
+.trash{color:var(--mute);font-size:13px}
+.promo{display:flex;gap:10px;margin:6px 0 12px}
+.promo label{flex:1;display:flex;align-items:center;padding:0 14px;border-radius:16px}
+.promo input{background:none;border:0;color:var(--ink);font:inherit;padding:13px 0;width:100%}
+.promo input::placeholder{color:var(--mute)}
+.promo button{padding:0 18px;border-radius:16px;background:#ffffff22;font-weight:600}
+.tot{padding:16px;border-radius:20px;margin-bottom:14px}
+.tot div{display:flex;justify-content:space-between;color:var(--mute);font-size:14px;padding:3px 0}
+.tot .t{color:#fff;font-size:18px;font-weight:700;border-top:1px solid var(--bd);margin-top:8px;padding-top:10px}
+.tot .t span:last-child{color:var(--vio)}
+.secure{text-align:center;color:var(--mute);font-size:12px;margin-top:10px}
+.empty{text-align:center;color:var(--mute);padding:60px 10px}
+input.name{width:100%;font:inherit;color:var(--ink);background:var(--glass);border:1px solid var(--bd);border-radius:16px;padding:13px 14px;margin-bottom:12px}
+input.name::placeholder{color:var(--mute)}
+.walink{display:none;text-align:center;font-weight:600;font-size:13px;color:var(--vio);margin-top:8px}.walink.show{display:block}
+
+/* estudio */
+.st img{border-radius:20px;margin-bottom:14px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.st h3{font-family:var(--serif);font-size:30px;font-weight:600}
+.st p{color:var(--mute);margin:6px 0 14px}
+.st .row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:12px}
+.st .row::-webkit-scrollbar{display:none}
+.st .row button{flex:0 0 auto;padding:9px 13px;border-radius:12px;border:1px solid var(--bd);font-size:13px;color:#ddd2ee;text-align:center}
+.st .row button b{display:block;font-size:18px;color:#fff}
+.st .row button[aria-pressed=true]{background:#fff;color:#1b1028}
+.st .row button[aria-pressed=true] b{color:#1b1028}
+.prop{padding:18px;border-radius:22px;margin-top:18px}
+.prop b{display:block;font-size:16px;margin-bottom:6px}
+.prop li{color:#ddd2ee;font-size:13.5px;margin:4px 0 4px 18px}
+
+.toast{position:absolute;left:50%;top:16px;transform:translate(-50%,-90px);background:#fff;color:#1b1028;font-weight:700;font-size:13px;padding:10px 16px;border-radius:999px;z-index:9;transition:transform .3s;white-space:nowrap}
+.toast.on{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="side">
+    <span class="tag">Demo 2 · versión app</span>
+    <h1>Rosario Piercing en el celular</h1>
+    <p>Se usa como una app: búsqueda, categorías, ficha de cada joya, carrito y turnos para colocación. Probala acá al lado o abrila desde tu celular.</p>
+    <a class="btn" href="index.html">Ver la tienda web</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://wa.me/5493412609941?text=Hola%20Lucas!%20Vi%20la%20demo%20app%20de%20Rosario%20Piercing%20y%20quiero%20avanzar.">Quiero avanzar</a>
+  </div>
+
+  <div class="phone" id="phone">
+    <div class="bg"></div>
+
+    <!-- 1. bienvenida -->
+    <section class="view on" id="splash">
+      <div class="card glass">
+        <img src="fotos/logo-elefante.png" alt="Logo de Rosario Piercing">
+        <h1>Rosario Piercing</h1>
+        <div class="sub">Brillá a tu manera</div>
+        <p>Joyería en titanio y acero.<br>Venta por mayor y menor.<br>Colocación profesional.</p>
+        <button class="cta" type="button" onclick="go('home')">Empezar <span>→</span></button>
+        <div class="dots"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <!-- 2. inicio -->
+    <section class="view" id="home">
+      <div class="top">
+        <button class="icbtn" type="button" aria-label="Menú" onclick="go('studio')"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        <h2>Rosario Piercing</h2>
+        <button class="icbtn" type="button" aria-label="Carrito" onclick="go('cart')"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h10.2L20 8H7"/><circle cx="9" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></svg><span class="cnt" data-cnt>0</span></button>
+      </div>
+      <div class="search">
+        <label class="glass"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" placeholder="Buscar navel, septum, plugs…" oninput="renderGrid()" aria-label="Buscar"></label>
+        <button class="icbtn glass" type="button" aria-label="Filtros" onclick="toggleMode()"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button>
+      </div>
+      <div class="mode glass" role="group" aria-label="Tipo de precio"><button type="button" data-m="min" aria-pressed="true">Precio minorista</button><button type="button" data-m="may" aria-pressed="false">Mayorista</button></div>
+      <div class="hero glass" id="hero"></div>
+      <div class="pager" id="pager"></div>
+      <div class="cats" id="cats"></div>
+      <div class="sh"><h4>Más vendidos</h4><button type="button" onclick="setCat('Todos')">Ver todo →</button></div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <!-- 3. detalle -->
+    <section class="view" id="detail">
+      <div class="dimg"><img id="dImg" alt=""><div class="dtop"><button class="icbtn" type="button" aria-label="Volver" onclick="go('home')">‹</button><button class="icbtn" type="button" id="dFav" aria-label="Favorito">♡</button></div></div>
+      <div class="dcard glass">
+        <h2 id="dName"></h2><div class="lat" id="dMat"></div>
+        <div class="meta"><span>✦ Entrega inmediata</span><span id="dCat"></span></div>
+        <p id="dDesc"></p>
+        <div class="specs"><div><i>◇</i><b id="sMat">Titanio</b>Material</div><div><i>⌀</i><b id="sCal">1,6 mm</b>Calibre</div><div><i>✧</i><b>Estéril</b>Embalaje</div><div><i>⇄</i><b>Sí</b>Mayorista</div></div>
+        <div class="opts" id="dOpts"></div>
+        <div class="buy"><div class="pr" id="dPrice"></div><button class="cta" type="button" id="dAdd">Agregar <span>🛍</span></button></div>
+      </div>
+    </section>
+
+    <!-- 4. carrito -->
+    <section class="view" id="cart">
+      <div class="top"><button class="icbtn" type="button" aria-label="Volver" onclick="go('home')">‹</button><h2>Mi carrito</h2><span style="width:42px"></span></div>
+      <div id="cartList"></div>
+      <div id="cartFoot">
+        <div class="promo"><label class="glass">🏷&nbsp;&nbsp;<input id="promo" placeholder="Código de descuento" aria-label="Código de descuento"></label><button type="button" onclick="applyPromo()">Aplicar</button></div>
+        <div class="tot glass"><div><span>Subtotal</span><span id="sub"></span></div><div id="dRow" style="display:none"><span>Descuento</span><span id="disc"></span></div><div><span>Envío</span><span>a coordinar</span></div><div class="t"><span>Total</span><span id="tot"></span></div></div>
+        <input class="name" id="cName" placeholder="Tu nombre y ciudad" aria-label="Tu nombre y ciudad">
+        <button class="cta" type="button" onclick="checkout()">Enviar pedido por WhatsApp <span>→</span></button>
+        <a class="walink" id="cLink" target="_blank" rel="noopener" href="#">Si no se abrió WhatsApp, tocá acá</a>
+        <div class="secure">🔒 Pedido seguro · te confirmamos stock y envío</div>
+      </div>
+    </section>
+
+    <!-- 5. estudio -->
+    <section class="view st" id="studio">
+      <div class="top"><button class="icbtn" type="button" aria-label="Volver" onclick="go('home')">‹</button><h2>El estudio</h2><span style="width:42px"></span></div>
+      <img src="fotos/equipo.jpg" alt="Clientas con piercings colocados en el estudio">
+      <h3>Colocación con Vane</h3>
+      <p>Material estéril y descartable, joya incluida. Lunes a sábado de 11 a 20 h.</p>
+      <div class="row" id="zones"></div>
+      <div class="row" id="days"></div>
+      <input class="name" id="bName" placeholder="Tu nombre" aria-label="Tu nombre">
+      <button class="cta" type="button" onclick="book()">Pedir turno <span>→</span></button>
+      <a class="walink" id="bLink" target="_blank" rel="noopener" href="#">Si no se abrió WhatsApp, tocá acá</a>
+      <div class="prop glass"><b>Demo de Roman Web</b><ul><li>Tienda con carrito y precio mayorista</li><li>Pedidos directo a tu WhatsApp</li><li>Turnos de colocación</li><li>Se instala como app en el celular</li></ul>
+        <a class="pillbtn" style="margin-top:10px" target="_blank" rel="noopener" href="https://wa.me/5493412609941?text=Hola%20Lucas!%20Vi%20la%20demo%20app%20de%20Rosario%20Piercing%20y%20quiero%20avanzar.">Quiero avanzar</a></div>
+    </section>
+
+    <nav class="tabbar glass hide" id="tabbar" aria-label="Secciones">
+      <button type="button" data-v="home" class="on"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/></svg>Inicio</button>
+      <button type="button" data-v="shop"><svg viewBox="0 0 24 24"><path d="M12 3l7 6-7 12L5 9z"/></svg>Joyas</button>
+      <button type="button" data-v="cart"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>Carrito<span class="cnt" data-cnt>0</span></button>
+      <button type="button" data-v="fav"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>Favoritos</button>
+      <button type="button" data-v="studio"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Estudio</button>
+    </nav>
+    <div class="toast" id="toast"></div>
+  </div>
+</div>
+
+<script>
+const WA="5493412213863",$=s=>document.querySelector(s),money=n=>"$"+Math.round(n).toLocaleString("es-AR");
+/* precios de ejemplo [minorista, mayorista] */
+const P=[
+ {id:1,n:"Navel titanio",m:"Titanio grado implante",c:"Navel",f:"navel-titanio",p:[14900,8900],o:["Cristal","Rosa","Aqua"],cal:"1,6 mm",t:"Titanio",d:"Navel con cristal engarzado y rosca externa. Hipoalergénico, ideal para perforaciones nuevas."},
+ {id:2,n:"Navel con piedra",m:"Acero quirúrgico 316L",c:"Navel",f:"navels",p:[7900,4200],o:["Rosa","Cristal","Tornasol","Celeste"],cal:"1,6 mm",d:"Clásico navel de acero con piedra de color. Brillo que dura."},
+ {id:3,n:"Clicker septum",m:"Acero con cristales",c:"Septum",f:"clickers",p:[9900,5500],o:["Cristal","Azul","Rojo"],cal:"1,2 mm",d:"Clicker con cierre seguro y línea de cristales."},
+ {id:4,n:"Clicker blanco",m:"Acero esmaltado",c:"Septum",f:"clicker-blanco",p:[10900,6200],o:["Negro","Cristal","Rojo"],cal:"1,2 mm",t:"Nuevo",d:"Esmaltado blanco con strass de color. Nuevo ingreso."},
+ {id:5,n:"Barra ornamental",m:"Acero quirúrgico",c:"Pezón",f:"pezon",p:[12900,7400],o:["Corazón","Gota"],cal:"1,6 mm",d:"Barra para pezón con escudo calado y cristales."},
+ {id:6,n:"Aro sin fin",m:"Titanio grado implante",c:"Aros",f:"sinfin",p:[11900,6900],o:["8 mm","10 mm"],cal:"1,2 mm",t:"Titanio",d:"Aro continuo de titanio, cómodo y discreto."},
+ {id:7,n:"Aro corazón",m:"Acero quirúrgico",c:"Aros",f:"corazones",p:[5900,3100],o:["Plateado"],cal:"1,0 mm",d:"Aro en forma de corazón para hélix, tragus o nariz."},
+ {id:8,n:"Tops con strass",m:"Para labret y flat",c:"Tops",f:"tops",p:[4900,2600],o:["Corona","Mariposa","Flor"],cal:"Rosca int.",d:"Tops intercambiables con diseños de strass."},
+ {id:9,n:"Industrial",m:"Acero anodizado",c:"Industrial",f:"industrial",p:[6900,3800],o:["Tornasol","Rosa","Violeta"],cal:"1,6 mm",d:"Barra industrial de 38 mm en colores anodizados."},
+ {id:10,n:"Plug de madera",m:"Madera y bronce",c:"Expansores",f:"plugs-madera",p:[8900,4900],o:["8 mm","10 mm","12 mm"],cal:"8–12 mm",d:"Plug de madera con chapita tallada. Entrega inmediata."},
+ {id:11,n:"Túneles y plugs",m:"Acero y acrílico",c:"Expansores",f:"tuneles",p:[6900,3600],o:["6 mm","8 mm","10 mm"],cal:"6–10 mm",d:"Túneles con rosca de acero y plugs negros."},
+ {id:12,n:"Garra acrílica",m:"Acrílico con o-ring",c:"Expansores",f:"garras",p:[4500,2300],o:["Azul","Rosa","Verde"],cal:"Varios",d:"Garras para expandir en colores."},
+ {id:14,n:"Pinza Foerster",m:"Acero inoxidable",c:"Insumos",f:"pinza",p:[18900,12900],o:["Estándar"],cal:"—",t:"Pro",d:"Pinza para perforadores. Insumos por mayor."}
+];
+const CATS=[["Todos","logo-elefante"],["Navel","navel-titanio"],["Septum","clickers"],["Pezón","pezon"],["Aros","corazones"],["Expansores","plugs-madera"],["Insumos","pinza"]];
+const HERO=[{t:"Brillá con titanio",s:"Grado implante para perforaciones nuevas.",f:"sinfin",id:6},{t:"Nuevos clickers",s:"Esmaltados con strass de color.",f:"clicker-blanco",id:4},{t:"Mayorista para estudios",s:"Activá precio mayorista y armá tu pedido.",f:"pinza",id:0}];
+let mode="min",cat="Todos",cart=[],favs=new Set(),onlyFav=false,promo=0,hi=0;
+const price=p=>mode==="may"?p.p[1]:p.p[0];
+
+function go(v){
+  if(v==="shop"){v="home";onlyFav=false;setCat("Todos");setTimeout(()=>$("#grid").scrollIntoView({behavior:"smooth"}),50);}
+  if(v==="fav"){v="home";onlyFav=true;renderGrid();setTimeout(()=>$("#grid").scrollIntoView({behavior:"smooth"}),50);if(!favs.size)toast("Tocá ♡ en una joya para guardarla");}
+  else if(v==="home") {onlyFav=false;renderGrid();}
+  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("on",x.id===v));
+  $("#tabbar").classList.toggle("hide",v==="splash"||v==="detail");
+  document.querySelectorAll(".tabbar button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+  if(v==="cart")renderCart();
+  const el=document.getElementById(v); if(el) el.scrollTop=0;
+}
+document.querySelectorAll(".tabbar button").forEach(b=>b.onclick=()=>go(b.dataset.v));
+
+function setMode(m){mode=m;document.querySelectorAll(".mode button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));renderGrid();renderCart();toast(m==="may"?"Precios mayoristas":"Precios minoristas");}
+document.querySelectorAll(".mode button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+function toggleMode(){setMode(mode==="min"?"may":"min");}
+
+function renderHero(){const h=HERO[hi];$("#hero").innerHTML=`<h3>${h.t}</h3><p>${h.s}</p><button class="pillbtn" type="button" onclick="${h.id?`openP(${h.id})`:"setMode('may')"}">${h.id?"Comprar":"Ver precios"}</button><img src="fotos/${h.f}.jpg" alt="">`;
+ $("#pager").innerHTML=HERO.map((_,i)=>`<i class="${i===hi?"on":""}"></i>`).join("");}
+setInterval(()=>{if($("#home").classList.contains("on")){hi=(hi+1)%HERO.length;renderHero();}},5000);
+
+function renderCats(){$("#cats").innerHTML=CATS.map(([c,f])=>`<button type="button" aria-pressed="${c===cat}" onclick="setCat('${c}')"><span class="c glass"><img src="fotos/${f}.${f==="logo-elefante"?"png":"jpg"}" alt="" ${f==="logo-elefante"?'style="object-fit:contain;padding:6px"':""}></span>${c}</button>`).join("");}
+function setCat(c){cat=c;renderCats();renderGrid();}
+function renderGrid(){
+  const q=($("#q").value||"").toLowerCase();
+  const list=P.filter(p=>(cat==="Todos"||p.c===cat)&&(!q||(p.n+" "+p.c+" "+p.m).toLowerCase().includes(q))&&(!onlyFav||favs.has(p.id)));
+  $("#grid").innerHTML=list.length?list.map(p=>`<button class="p glass" type="button" onclick="openP(${p.id})"><div class="im"><img src="fotos/${p.f}.jpg" alt="${p.n}" loading="lazy">${p.t?`<span class="tag">${p.t}</span>`:""}</div><div class="nm"><span>${p.n}</span><span class="heart" aria-pressed="${favs.has(p.id)}" onclick="event.stopPropagation();fav(${p.id})">${favs.has(p.id)?"♥":"♡"}</span></div><div class="pr">${money(price(p))} <small>${mode==="may"?"mayorista":""}</small></div></button>`).join(""):`<p class="empty" style="grid-column:1/-1">${onlyFav?"Todavía no guardaste favoritos.":"No encontramos joyas con esa búsqueda."}</p>`;
+}
+function fav(id){favs.has(id)?favs.delete(id):favs.add(id);renderGrid();toast(favs.has(id)?"Guardado en favoritos":"Quitado de favoritos");}
+
+let cur=null,opt=null;
+function openP(id){const p=P.find(x=>x.id===id);cur=p;opt=p.o[0];
+ $("#dImg").src=`fotos/${p.f}.jpg`;$("#dImg").alt=p.n;$("#dName").textContent=p.n;$("#dMat").textContent=p.m;$("#dCat").textContent=p.c;$("#dDesc").textContent=p.d;
+ $("#sMat").textContent=p.m.split(" ")[0];$("#sCal").textContent=p.cal;
+ const draw=()=>{$("#dOpts").innerHTML=p.o.map(o=>`<button type="button" aria-pressed="${o===opt}">${o}</button>`).join("");$("#dOpts").querySelectorAll("button").forEach((b,i)=>b.onclick=()=>{opt=p.o[i];draw();});};draw();
+ $("#dPrice").innerHTML=`${money(price(p))}<small>${mode==="may"?"precio mayorista":"mayorista "+money(p.p[1])}</small>`;
+ $("#dFav").textContent=favs.has(p.id)?"♥":"♡";$("#dFav").onclick=()=>{fav(p.id);$("#dFav").textContent=favs.has(p.id)?"♥":"♡";};
+ $("#dAdd").onclick=()=>{add(p.id,opt);go("home");};
+ go("detail");}
+function add(id,o){const ex=cart.find(x=>x.id===id&&x.o===o);ex?ex.q++:cart.push({id,o,q:1});count();toast("Agregado al carrito");}
+function count(){const n=cart.reduce((s,x)=>s+x.q,0);document.querySelectorAll("[data-cnt]").forEach(e=>{e.textContent=n;e.style.display=n?"grid":"none"});}
+function chg(i,d){cart[i].q+=d;if(cart[i].q<=0)cart.splice(i,1);renderCart();count();}
+function renderCart(){
+  if(!cart.length){$("#cartList").innerHTML=`<div class="empty">Tu carrito está vacío.<br><br><button class="pillbtn" type="button" onclick="go('home')">Ver joyas</button></div>`;$("#cartFoot").style.display="none";return;}
+  $("#cartFoot").style.display="";
+  $("#cartList").innerHTML=cart.map((x,i)=>{const p=P.find(y=>y.id===x.id);return `<div class="ci glass"><img src="fotos/${p.f}.jpg" alt=""><div><b>${p.n}</b><small>${x.o} · ${p.m}</small><div class="pr">${money(price(p))}</div></div><div class="right"><div class="qty"><button type="button" onclick="chg(${i},-1)" aria-label="Quitar uno">−</button><span>${x.q}</span><button type="button" onclick="chg(${i},1)" aria-label="Agregar uno">+</button></div><button class="trash" type="button" onclick="chg(${i},-${x.q})">Quitar</button></div></div>`}).join("");
+  const sub=cart.reduce((s,x)=>s+price(P.find(y=>y.id===x.id))*x.q,0),d=sub*promo;
+  $("#sub").textContent=money(sub);$("#dRow").style.display=promo?"flex":"none";$("#disc").textContent="−"+money(d);$("#tot").textContent=money(sub-d);
+}
+function applyPromo(){const c=$("#promo").value.trim().toUpperCase();if(c==="BIENVENIDA"){promo=.1;toast("10% de descuento aplicado");}else{promo=0;toast("Probá con BIENVENIDA");}renderCart();}
+function openWA(t,sel){const u=`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;const a=$(sel);a.href=u;a.classList.add("show");try{window.open(u,"_blank")}catch(e){}}
+function checkout(){const l=cart.map(x=>{const p=P.find(y=>y.id===x.id);return `• ${x.q} x ${p.n} (${x.o}) ${money(price(p)*x.q)}`}).join("\n");
+ openWA(`Hola Rosario Piercing! Pedido ${mode==="may"?"MAYORISTA":"minorista"} desde la app:\n${l}${promo?"\nCódigo: BIENVENIDA (10%)":""}\nTotal: ${$("#tot").textContent}${$("#cName").value.trim()?`\nNombre: ${$("#cName").value.trim()}`:""}`,"#cLink");}
+
+/* turnos */
+let Z=null,D=null;
+$("#zones").innerHTML=["Nariz","Oreja","Septum","Ombligo","Labio","Ceja","Lengua"].map(z=>`<button type="button" aria-pressed="false">${z}</button>`).join("");
+$("#zones").querySelectorAll("button").forEach(b=>b.onclick=()=>{Z=b.textContent;$("#zones").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));});
+(function(){const o=[],d=new Date(),w=new Intl.DateTimeFormat("es-AR",{weekday:"short"}),fl=new Intl.DateTimeFormat("es-AR",{weekday:"long",day:"numeric",month:"long"});while(o.length<10){d.setDate(d.getDate()+1);if(d.getDay()!==0)o.push(new Date(d));}
+ $("#days").innerHTML=o.map(x=>`<button type="button" aria-pressed="false" data-f="${fl.format(x)}">${w.format(x).replace(".","")}<b>${x.getDate()}</b></button>`).join("");
+ $("#days").querySelectorAll("button").forEach(b=>b.onclick=()=>{D=b.dataset.f;$("#days").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));});})();
+function book(){openWA(`Hola! Soy ${$("#bName").value.trim()||"(nombre)"}. Quiero turno para colocarme un piercing${Z?` de ${Z.toLowerCase()}`:""}${D?` el ${D}`:""}.`,"#bLink");}
+
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove("on"),1500);}
+renderHero();renderCats();renderGrid();count();
+</script>
+</body>
+</html>
